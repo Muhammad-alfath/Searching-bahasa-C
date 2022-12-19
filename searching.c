@@ -1,27 +1,38 @@
-1.	Linear Search
+2.	Binary Search
 
 #include <stdio.h>
 
-int linearSearch(int data[],int datayangdicari){
+int binarySearch(int array[], int CariAngka, int left, int right) {
+  if (right >= left) {
+    int mid = left + (right - left) / 2;
 
-  //looping untuk mencari datanya
-  int bykdata;
-    for(int i= 0; i<bykdata;i++){
-      if(data[i]==datayangdicari)return i;
-    }
+    // Jika menemukan angka tengah maka return mid
+    if (array[mid] == CariAngka)
+      return mid;
+
+    // Cari angka pada bagian kiri
+    if (array[mid] > CariAngka)
+      return binarySearch(array, CariAngka, left, mid - 1);
+
+    // Cari angka pada bagian kanan
+    return binarySearch(array, CariAngka, mid + 1, right);
+  }
 
   return -1;
 }
 
-int main (){
-  int data[5]={3, 7, 10, 16, 22}; //data
-  int indexSearch = linearSearch(data,7); //(data, angka yang dicari)
+int main() {
+  int array[] = {2, 5, 13, 16, 20, 26, 31};
+  int n = sizeof(array) / sizeof(array[0]);
+  int CariAngka = 20; //angka yang ingin dicari
+  int hasil = binarySearch(array, CariAngka, 0, n - 1);
 
-  if(indexSearch == -1){
-  printf("Data yang diinput tidak dapat ditemukan dalam array.\n");
+  if (hasil == -1){
+    printf("Data yang diinput tidak dapat ditemukan.\n");
   }
   else{
-  printf("Data %d ditemukan dalam array.\n",data[indexSearch]);
+    printf("Angka %d ditemukan pada index %d.\n", CariAngka, hasil);
   }
+
   return 0;
 }
